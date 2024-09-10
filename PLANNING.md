@@ -11,7 +11,8 @@ _Academic first semester 2024-2025_
   * Lexing, Parsing, [slides](course/capmif_cours02_lexing_parsing.pdf).
   * [Demo Parsing](course/ANTLRExamples.tar.xz).
 
-- :hammer: Lab 1: Thursday 12/09/2024, 10h15-12h15. Room E001 (Samuel Humeau & Hugo Thievenaz)
+- :hammer: Lab 1: Thursday 12/09/2024, 10h15-12h15. Room E001 (Samuel
+  Humeau & Emma Nardino)
 
 - :rocket: Additional ressources (mainly in english)
 

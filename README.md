@@ -17,7 +17,7 @@
 
 ```
 git clone https://github.com/Drup/cap-lab24.git
-cd cap-lab23
+cd cap-lab24
 ```
 
 ## Contents
