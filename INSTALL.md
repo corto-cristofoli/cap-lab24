@@ -10,6 +10,20 @@ used in the labs).
 
 If this works for you, perfect, you can stop here.
 
+## MacOS
+
+There exists a Homebrew package for the RiscV toolchain, which
+_should_ work.
+
+```
+$ brew tap riscv-software-src/riscv
+$ brew install riscv-tools
+```
+
+See more detailed instructions at:
+
+  https://github.com/riscv-software-src/homebrew-riscv
+
 # Alternative 1 : docker
 
 Docker is a lightweight alternative to virtual machines. An image with
