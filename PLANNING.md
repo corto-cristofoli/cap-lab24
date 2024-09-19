@@ -24,3 +24,7 @@ _Academic first semester 2024-2025_
 - :book: Course: Monday 16/09/2024, 13h30-15h30. Amphi SVT (Bio) (Yannick Zakowski)
   
   * Semantics: [transparents](course/capmif_cours_03_semantics.pdf).
+
+- :book: Course: Thursday 19/09/2024, 10h15-12h15. Amphi B (Yannick Zakowski)
+
+  * Typing: [transparents](course/capmif_cours_04_typing.pdf).
