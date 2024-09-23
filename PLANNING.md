@@ -28,3 +28,11 @@ _Academic first semester 2024-2025_
 - :book: Course: Thursday 19/09/2024, 10h15-12h15. Amphi B (Yannick Zakowski)
 
   * Typing: [transparents](course/capmif_cours_04_typing.pdf).
+
+# Week 3:
+
+- :hammer: Lab 2: Thursday 23/09/2023, 13h30-15h30. Room E001 (Samuel Humeau & Emma Nardino)
+
+  * Lexing & Parsing with ANTLR4 [TP02](TP02/tp2.pdf).
+  * Code in [TP02/](TP02/).
+
