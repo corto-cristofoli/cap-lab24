@@ -36,3 +36,8 @@ _Academic first semester 2024-2025_
   * Lexing & Parsing with ANTLR4 [TP02](TP02/tp2.pdf).
   * Code in [TP02/](TP02/).
 
+- :book: Course: Thursday 26/09/2024, 10h15-12h15. Amphi B (Gabriel Radanne)
+
+  * Interpreters: [transparents](course/capmif_cours03_interpreters.pdf).
+  * 3 Address code generation: [transparents](course/capmif_cours05_3ad_codegen.pdf).
+
