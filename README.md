@@ -10,7 +10,7 @@
   - Gabriel Radanne, Inria, LIP https://gabriel.radanne.net/
   - Yannick Zakowski, Inria, LIP https://perso.ens-lyon.fr/yannick.zakowski/
 
-* Page on the "portail des études ENSL" : https://etudes.ens-lyon.fr/course/view.php?id=5673
+* Page on the "portail des études ENSL" : https://etudes.ens-lyon.fr/course/view.php?id=6042
 * Covid Era's video courses: https://www.youtube.com/playlist?list=PLtjm-n_Ts-J-6EU1WfVIWLhl1BUUR-Sqm
 
 ## Get the repository
