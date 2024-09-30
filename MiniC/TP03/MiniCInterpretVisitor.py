@@ -114,12 +114,8 @@ class MiniCInterpretVisitor(MiniCVisitor):
         if ctx.myop.type == MiniCParser.MULT:
             return lval * rval
         elif ctx.myop.type == MiniCParser.DIV:
-            if rval == 0:
-                raise MiniCRuntimeError("Division by 0")
-            if isinstance(lval, int):
-                return lval // rval
-            else:
-                return lval / rval
+            # TODO : interpret division
+            raise NotImplementedError()
         elif ctx.myop.type == MiniCParser.MOD:
             # TODO : interpret modulo
             raise NotImplementedError()
