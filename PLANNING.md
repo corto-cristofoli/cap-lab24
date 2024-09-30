@@ -31,7 +31,7 @@ _Academic first semester 2024-2025_
 
 # Week 3:
 
-- :hammer: Lab 2: Thursday 23/09/2023, 13h30-15h30. Room E001 (Samuel Humeau & Emma Nardino)
+- :hammer: Lab 2: Thursday 23/09/2023, 13h30-15h30. Room E001 103 & -138 (Grenat) (Samuel Humeau & Emma Nardino)
 
   * Lexing & Parsing with ANTLR4 [TP02](TP02/tp2.pdf).
   * Code in [TP02/](TP02/).
@@ -41,3 +41,9 @@ _Academic first semester 2024-2025_
   * Interpreters: [transparents](course/capmif_cours03_interpreters.pdf).
   * 3 Address code generation: [transparents](course/capmif_cours05_3ad_codegen.pdf).
 
+# Week 4:
+
+- hammer: Lab 3: Monday 30/09/2024, 13h30-15h30. Room E001 (Samuel Humeau & Emma Nardino)
+
+  * Interpreter & Typer [TP03](TP03/tp3.pdf).
+  * Code in [TP03/](TP03/) and [MiniC/TP03/](MiniC/TP03/).
