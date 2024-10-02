@@ -47,3 +47,7 @@ _Academic first semester 2024-2025_
 
   * Interpreter & Typer [TP03](TP03/tp3.pdf).
   * Code in [TP03/](TP03/) and [MiniC/TP03/](MiniC/TP03/).
+
+- :book: Course: Thursday 3/10/2024, 10h15-12h15. Amphi B (Gabriel Radanne)
+
+  * CFG [slides in english](course/capmif_cours06_irs.pdf).
