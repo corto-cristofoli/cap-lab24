@@ -43,7 +43,7 @@ _Academic first semester 2024-2025_
 
 # Week 4:
 
-- hammer: Lab 3: Monday 30/09/2024, 13h30-15h30. Room E001 (Samuel Humeau & Emma Nardino)
+- :hammer: Lab 3: Monday 30/09/2024, 13h30-15h30. Room E001 (Samuel Humeau & Emma Nardino)
 
   * Interpreter & Typer [TP03](TP03/tp3.pdf).
   * Code in [TP03/](TP03/) and [MiniC/TP03/](MiniC/TP03/).
@@ -51,3 +51,12 @@ _Academic first semester 2024-2025_
 - :book: Course: Thursday 3/10/2024, 10h15-12h15. Amphi B (Gabriel Radanne)
 
   * CFG [slides in english](course/capmif_cours06_irs.pdf).
+
+# Week 5:
+
+- :hammer: Lab 4a: Monday 07/10/2024, 13h30-15h30. Room E001 (Samuel Humeau & Emma Nardino)
+
+  * Syntax directed code generation [TP04](TP04/tp4a.pdf).
+  * Code in [MiniC/TP04/](MiniC/TP04/).
+  * Documentation [here](docs/html/index.html).
+
