@@ -5,7 +5,7 @@ import os
 import sys
 from test_expect_pragma import (
     TestExpectPragmas, cat,
-    TestCompiler, filter_pathnames
+    TestCompiler
     )
 
 HERE = os.path.dirname(os.path.realpath(__file__))
@@ -34,7 +34,8 @@ if 'TEST_FILES' in os.environ:
 MINIC_EVAL = os.path.join(IMPLEM_DIR, 'MiniCC.py')
 
 if 'FILTER' in os.environ:
-    ALL_FILES = filter_pathnames(ALL_FILES, os.environ['FILTER'])
+    FILTER_FILES = glob.glob(os.path.join(HERE, os.environ['FILTER']), recursive=True)
+    ALL_FILES = list(set(FILTER_FILES) & set(ALL_FILES))
 
 
 class TestInterpret(TestExpectPragmas, TestCompiler):

@@ -6,7 +6,7 @@ import pytest
 import glob
 from test_expect_pragma import (
     TestExpectPragmas, TestCompiler,
-    filter_pathnames, cat
+    cat
     )
 
 """
@@ -69,21 +69,21 @@ MINIC_EVAL = os.path.join(
 #     MINIC_EVAL = os.path.join(
 #         HERE, '..', '..', 'TP03', 'MiniC-type-interpret', 'Main.py')
 
-# Avoid duplicates
-ALL_IN_MEM_FILES = list(set(ALL_FILES) | set(ALLOC_FILES))
-ALL_IN_MEM_FILES.sort()
-ALL_FILES = list(set(ALL_FILES))
-ALL_FILES.sort()
-
 if 'TEST_FILES' in os.environ:
     ALLOC_FILES = ALL_FILES
     ALL_IN_MEM_FILES = ALL_FILES
 
+ALL_IN_MEM_FILES = list(set(ALL_FILES) | set(ALLOC_FILES))
 if 'FILTER' in os.environ:
-    ALL_FILES = filter_pathnames(ALL_FILES, os.environ['FILTER'])
-    ALLOC_FILES = filter_pathnames(ALLOC_FILES, os.environ['FILTER'])
-    ALL_IN_MEM_FILES = filter_pathnames(ALL_IN_MEM_FILES, os.environ['FILTER'])
+    FILTER_FILES = glob.glob(os.path.join(HERE, os.environ['FILTER']), recursive=True)
+    ALL_FILES = list(set(FILTER_FILES) & set(ALL_FILES))
+    ALLOC_FILES = list(set(FILTER_FILES) & set(ALLOC_FILES))
+    ALL_IN_MEM_FILES = list(set(FILTER_FILES) & set(ALL_IN_MEM_FILES))
 
+# Avoid duplicates
+ALL_IN_MEM_FILES.sort()
+ALL_FILES = list(set(ALL_FILES))
+ALL_FILES.sort()
 
 class TestCodeGen(TestExpectPragmas, TestCompiler):
     DISABLE_CODEGEN = DISABLE_CODEGEN
