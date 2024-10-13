@@ -60,3 +60,7 @@ _Academic first semester 2024-2025_
   * Code in [MiniC/TP04/](MiniC/TP04/).
   * Documentation [here](docs/html/index.html).
 
+- :book: Course: Thursday 10/10/2024, 10h15-12h15. Amphi B (Gabriel Radanne)
+
+  * SSA [slides in english](course/capmif_cours06a_ssa.pdf).
+
