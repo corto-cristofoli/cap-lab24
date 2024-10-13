@@ -64,3 +64,10 @@ _Academic first semester 2024-2025_
 
   * SSA [slides in english](course/capmif_cours06a_ssa.pdf).
 
+# Week 6:
+
+- :hammer: Lab 4b: Thursday 14/10/2024, 13h30-15h30. Room E001 (Samuel Humeau & Emma Nardino)
+
+  * Control Flow Graph [TP04b](TP04/tp4b.pdf).
+  * Code in [MiniC/TP04/](MiniC/TP04/).
+  * Documentation (updated) [here](docs/html/index.html).
