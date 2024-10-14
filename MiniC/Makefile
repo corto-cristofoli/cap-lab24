@@ -1,4 +1,4 @@
-MYNAME = JohnDoe
+MYNAME = CortoCristofoli
 PACKAGE = MiniC
 # Example: stop at the first failed test:
 #   make PYTEST_OPTS=-x test
@@ -18,6 +18,7 @@ export MINICC_OPTS
 
 PYTEST_BASE_OPTS=-vv -rs --failed-first --cov="$(PWD)" --cov-report=term --cov-report=html
 
+# ANTLR4=antlr4  # to disable in riscv docker
 ifndef ANTLR4
 abort:
 	$(error variable ANTLR4 is not set)

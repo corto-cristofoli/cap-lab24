@@ -61,7 +61,7 @@ atom
     | INT            #intAtom
     | FLOAT          #floatAtom
     | (TRUE | FALSE) #booleanAtom
-    | ID             #idAtom
+    | myid=ID             #idAtom
     | STRING         #stringAtom
     ;
 

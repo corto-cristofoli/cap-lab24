@@ -1,6 +1,8 @@
 MAINFILE = main
 PACKAGE = Example1
 
+ANTLR4=antlr4
+
 ifndef ANTLR4
 $(error variable ANTLR4 is not set)
 endif

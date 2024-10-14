@@ -4,11 +4,12 @@ LAB3, MIF08 / CAP / CS444 2022-23
 
 # Authors
 
-TODO: YOUR NAME HERE
+Corto Cristofoli
 
 # Contents
 
-TODO for STUDENTS : Say a bit about the code infrastructure ...
+The `TP03/MiniCInterpretVisitor.py` is the parser for evaluating the code. `TP03/MiniCTypingVisitor.py` is
+parsing the type and all the errors.
 
 # Howto
 
@@ -21,12 +22,13 @@ You can select the files you want to test by using `make test TEST_FILES='TP03/*
 
 # Test design 
 
-TODO: explain your tests. Do not repeat what test files already contain, just give the main objectives of the tests.
+The tests are separated between good and bad tests. I haven't the time to do a lot, so they only cover 47% of
+the code.
 
 # Design choices
 
-TODO: explain your choices - explain the limitations of your implementation.
+I haven't done the for loop (not the time).
 
 # Known bugs
 
-TODO: document any known bug and limitations. Did you do everything asked for? Did you implement an extension?
+I didn't see any bugs.

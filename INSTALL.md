@@ -29,7 +29,7 @@ See more detailed instructions at:
 Docker is a lightweight alternative to virtual machines. An image with
 RISC-V tools, LaTeX and Python is given here:
 
-  https://cloud.docker.com/u/mmoy/repository/docker/mmoy/riscv-latex-python
+[le lien](https://cloud.docker.com/u/mmoy/repository/docker/mmoy/riscv-latex-python)
 
 To launch it with the current directory mounted, run:
 

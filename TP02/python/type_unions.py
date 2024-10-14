@@ -3,28 +3,22 @@ from typing import List
 # int | float means ``either an int or a float''.
 NUMBER = int | float  # or Union[int, float] with Union imported from typing
 
-
 def add_numbers(a: NUMBER, b: NUMBER) -> NUMBER:
     return a + b
-
 
 # Both int and floats can be passed to the function
 print(add_numbers(1, 4.3))
 
-
 def divide_numbers(a: NUMBER, b: NUMBER) -> float:
     return a / b
-
 
 print(divide_numbers(1, 2))
 
 # Declare the type of a list whose elements are numbers.
 LIST_OF_NUMBERS = List[NUMBER]
 
-
 def increment(a: LIST_OF_NUMBERS) -> LIST_OF_NUMBERS:
     return [x + 1 for x in a]
-
 
 print(increment([1, 2, 3]))
 
@@ -35,7 +29,6 @@ print(increment([1, 2, 3]))
 # initialization, but the circular dependency can be broken using the string
 # 'DEEP_LIST_OF_NUMBERS' instead.
 DEEP_LIST_OF_NUMBERS = NUMBER | List['DEEP_LIST_OF_NUMBERS']
-
 
 def deep_increment(d: DEEP_LIST_OF_NUMBERS) -> DEEP_LIST_OF_NUMBERS:
     if isinstance(d, list):

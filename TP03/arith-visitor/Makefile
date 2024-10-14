@@ -1,6 +1,8 @@
 PACKAGE = Arit
 MAINFILE = arit
 
+
+ANTLR4=antlr4
 ifndef ANTLR4
 abort:
 	$(error variable ANTLR4 is not set)

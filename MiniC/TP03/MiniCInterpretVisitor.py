@@ -1,7 +1,8 @@
 # Visitor to *interpret* MiniC files
+from math import copysign
 from typing import (
-  Dict,
-  List)
+    Dict,
+    List)
 from MiniCVisitor import MiniCVisitor
 from MiniCParser import MiniCParser
 from Lib.Errors import MiniCRuntimeError, MiniCInternalError, MiniCUnsupportedError
@@ -21,11 +22,24 @@ class MiniCInterpretVisitor(MiniCVisitor):
 
     def visitVarDecl(self, ctx) -> None:
         # Initialise all variables in self._memory
+        initial_val = {
+                "int": 0,
+                "float": 0.0,
+                "bool": False,
+                "string": ""
+                }
         type_str = ctx.typee().getText()
-        raise NotImplementedError(f"Initialization for type {type_str}")
+        id_str_l = self.visit(ctx.id_l())
+        for id_str in id_str_l:
+            # if id_str in self._memory:
+            #     raise MiniCUnsupportedError(f"Variable {id_str} has already been declared")
+            self._memory[id_str] = initial_val[type_str]
+        # raise NotImplementedError(f"Initialization for type {type_str}")
 
     def visitIdList(self, ctx) -> List[str]:
-        raise NotImplementedError()
+        queue = self.visit(ctx.id_l())
+        queue.append(ctx.ID().getText())
+        return queue
 
     def visitIdListBase(self, ctx) -> List[str]:
         return [ctx.ID().getText()]
@@ -45,7 +59,11 @@ class MiniCInterpretVisitor(MiniCVisitor):
         return ctx.getText() == "true"
 
     def visitIdAtom(self, ctx) -> MINIC_VALUE:
-        raise NotImplementedError()
+        # raise NotImplementedError()
+        id_str = ctx.getText()
+        # if id_str not in self._memory:
+        #     raise MiniCRuntimeError("Variable {} not defined".format(id_str))
+        return self._memory[id_str]
 
     def visitStringAtom(self, ctx) -> str:
         return ctx.getText()[1:-1]  # Remove the ""
@@ -117,12 +135,19 @@ class MiniCInterpretVisitor(MiniCVisitor):
             if rval == 0:
                 raise MiniCRuntimeError("Division by 0")
             if isinstance(lval, int):
-                return lval // rval
+                # int division in C different that in Python
+                s, l, r = lval * rval, abs(lval), abs(rval)
+                return int(copysign(l // r, s))
             else:
                 return lval / rval
         elif ctx.myop.type == MiniCParser.MOD:
-            # TODO : interpret modulo
-            raise NotImplementedError()
+            if rval == 0:
+                raise MiniCRuntimeError("Modulo by 0")
+            # modulo in C different that in Python
+            # we use the fact that a = (a//b)*b + a%b
+            s, l, r = lval * rval, abs(lval), abs(rval)
+            div = int(copysign(l // r, s))
+            return lval - div * rval
         else:
             raise MiniCInternalError(
                 f"Unknown multiplicative operator '{ctx.myop}'")
@@ -154,13 +179,33 @@ class MiniCInterpretVisitor(MiniCVisitor):
         print(val)
 
     def visitAssignStat(self, ctx) -> None:
-        raise NotImplementedError()
+        val = self.visit(ctx.expr())
+        Id = ctx.ID().getText()
+        if Id not in self._memory:
+            raise MiniCRuntimeError("Variable {} not initialised".format(Id))
+        self._memory[Id] = val
 
     def visitIfStat(self, ctx) -> None:
-        raise NotImplementedError()
+        # raise NotImplementedError()
+        b_val = self.visit(ctx.expr())
+        if b_val:
+            try:
+                self.visit(ctx.stat_block())
+            except AttributeError:
+                self.visit(ctx.stat_block(0))
+        else:
+            try:
+                self.visit(ctx.stat_block(1))
+            except AttributeError:
+                pass  # if there is no else condition we simply skip
 
     def visitWhileStat(self, ctx) -> None:
-        raise NotImplementedError()
+        # raise NotImplementedError()
+        pass
+        b_val = self.visit(ctx.expr())
+        while b_val:
+            self.visit(ctx.stat_block())
+            b_val = self.visit(ctx.expr())
 
     # TOPLEVEL
     def visitProgRule(self, ctx) -> None:
@@ -179,7 +224,9 @@ class MiniCInterpretVisitor(MiniCVisitor):
             self.visit(ctx.vardecl_l())
             self.visit(ctx.block())
         else:
-            raise MiniCUnsupportedError("Functions are not supported in evaluation mode")
+            raise MiniCUnsupportedError(
+                "Functions are not supported in evaluation mode")
 
     def visitFuncCall(self, ctx) -> None:  # pragma: no cover
-        raise MiniCUnsupportedError("Functions are not supported in evaluation mode")
+        raise MiniCUnsupportedError(
+            "Functions are not supported in evaluation mode")
