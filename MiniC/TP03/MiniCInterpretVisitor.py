@@ -31,10 +31,7 @@ class MiniCInterpretVisitor(MiniCVisitor):
         type_str = ctx.typee().getText()
         id_str_l = self.visit(ctx.id_l())
         for id_str in id_str_l:
-            # if id_str in self._memory:
-            #     raise MiniCUnsupportedError(f"Variable {id_str} has already been declared")
             self._memory[id_str] = initial_val[type_str]
-        # raise NotImplementedError(f"Initialization for type {type_str}")
 
     def visitIdList(self, ctx) -> List[str]:
         queue = self.visit(ctx.id_l())
