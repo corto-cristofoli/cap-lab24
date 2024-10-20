@@ -71,3 +71,7 @@ _Academic first semester 2024-2025_
   * Control Flow Graph [TP04b](TP04/tp4b.pdf).
   * Code in [MiniC/TP04/](MiniC/TP04/).
   * Documentation (updated) [here](docs/html/index.html).
+
+- :book: Course: Thursday 17/10/2024, 10h15-12h15. Amphi L (Gabriel Radanne)
+
+  * Register allocation [slides in english](course/cap_cours07_regalloc.pdf).
