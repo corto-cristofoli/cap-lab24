@@ -83,3 +83,7 @@ _Academic first semester 2024-2025_
   * Control Flow Graph under SSA Form [TP05a](TP05/tp5a.pdf).
   * Code in [MiniC/TP05/](MiniC/TP05/).
   * Documentation (updated) [here](docs/html/index.html).
+
+- :book: Course: Thursday 25/10/2024, 10h15-12h15. Amphi B (Gabriel Radanne)
+
+  * SSA Optims [slides in english](course/cap_cours06b_ssa_optim.pdf).
