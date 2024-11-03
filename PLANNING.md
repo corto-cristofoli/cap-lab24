@@ -83,3 +83,10 @@ _Academic first semester 2024-2025_
   * Control Flow Graph under SSA Form [TP05a](TP05/tp5a.pdf).
   * Code in [MiniC/TP05/](MiniC/TP05/).
   * Documentation (updated) [here](docs/html/index.html).
+
+# Week 8:
+
+- :hammer: Lab 5b (1/2): Monday 04/11/2023, 13h30-15h30. Room E001 (Samuel Humeau & Emma Nardino)
+
+    * Smart Register Allocation [TP05b](TP05/tp5b.pdf).
+    * Code in [MiniC/TP05/](MiniC/TP05/).

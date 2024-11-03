@@ -105,8 +105,9 @@ b._phis for a <a class="reference internal" href="Lib.CFG.html#Lib.CFG.Block" ti
 <dd><p>Bases: <a class="reference internal" href="Lib.Statement.html#Lib.Statement.Statement" title="Lib.Statement.Statement"><code class="xref py py-class docutils literal notranslate"><span class="pre">Statement</span></code></a></p>
 <p>A φ node is a renaming in the CFG, of the form temp_x = φ(temp_0, …, temp_n).
 The field var contains the variable temp_x.
-The field srcs relies for each precedent block in the CFG, identified with its label,
-the variable temp_i of the φ node.</p>
+The field srcs links each corresponding predecessor in the CFG
+—identified by its label—, to the variable temp_i of the φ
+node.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="Lib.PhiNode.PhiNode.var">
 <span class="sig-name descname"><span class="pre">var</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="Lib.Operands.html#Lib.Operands.DataLocation" title="Lib.Operands.DataLocation"><span class="pre">DataLocation</span></a></em><a class="headerlink" href="#Lib.PhiNode.PhiNode.var" title="Permalink to this definition"></a></dt>

@@ -98,8 +98,9 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A φ node is a renaming in the CFG, of the form temp_x = φ(temp_0, ..., temp_n).</span>
 <span class="sd">    The field var contains the variable temp_x.</span>
-<span class="sd">    The field srcs relies for each precedent block in the CFG, identified with its label,</span>
-<span class="sd">    the variable temp_i of the φ node.</span>
+<span class="sd">    The field srcs links each corresponding predecessor in the CFG</span>
+<span class="sd">    ---identified by its label---, to the variable temp_i of the φ</span>
+<span class="sd">    node.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">var</span><span class="p">:</span> <span class="n">DataLocation</span>
     <span class="n">srcs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Label</span><span class="p">,</span> <span class="n">Operand</span><span class="p">]</span>
