@@ -1,7 +1,0 @@
-Lib.LinearCode module
-=====================
-
-.. automodule:: Lib.LinearCode
-   :members:
-   :undoc-members:
-   :show-inheritance:

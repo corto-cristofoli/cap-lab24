@@ -1,7 +1,0 @@
-Lib.Operands module
-===================
-
-.. automodule:: Lib.Operands
-   :members:
-   :undoc-members:
-   :show-inheritance:
