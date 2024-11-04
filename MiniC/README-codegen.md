@@ -3,23 +3,19 @@ LAB4 (simple code generation), MIF08 / CAP 2022-23
 
 # Authors
 
-YOUR NAME HERE
+Cristofoli Corto
 
 # Contents
-
-TODO for STUDENTS : Say a bit about the code infrastructure ...
+Not finished at all
 
 # Test design 
-
-TODO: explain your tests
+tests for step1 and step2
 
 # Design choices
 
-TODO: explain your choices. How did you implement boolean not? Did you implement an extension?
 
 # Known bugs
-
-TODO: Bugs and limitations.
+the if statement doesn't work
 
 # Checklists
 
@@ -28,17 +24,17 @@ and *tested* with appropriate test cases.
 
 ## Code generation
 
-- [ ] Number Atom
-- [ ] Boolean Atom
-- [ ] Id Atom
-- [ ] Additive expression
-- [ ] Multiplicative expression
-- [ ] UnaryMinus expression
-- [ ] Or expression
-- [ ] And expression
-- [ ] Equality expression
-- [ ] Relational expression (! many cases -> many tests)
-- [ ] Not expression
+- [x] Number Atom
+- [x] Boolean Atom
+- [x] Id Atom
+- [x] Additive expression
+- [x] Multiplicative expression
+- [x] UnaryMinus expression
+- [x] Or expression
+- [x] And expression
+- [x] Equality expression
+- [x] Relational expression (! many cases -> many tests)
+- [x] Not expression
 
 ## Statements
 

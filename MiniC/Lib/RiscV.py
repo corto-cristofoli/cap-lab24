@@ -76,6 +76,12 @@ def xor(dr: Operand, sr1: Operand, sr2orimm7: Operand) -> Instru3A:  # pragma: n
         return Instru3A("xor", dr, sr1, sr2orimm7)
 
 
+# add by myself #################################################
+def slt(dr: Operand, sr1: Operand, sr2: Operand) -> Instru3A:
+    return Instru3A("slt", dr, sr1, sr2)
+#################################################################
+
+
 def li(dr: Operand, imm7: Immediate) -> Instru3A:
     return Instru3A("li", dr, imm7)
 

@@ -43,7 +43,7 @@ class MiniCCodeGen3AVisitor(MiniCVisitor):
                 raise MiniCInternalError(
                     "Variable {} has already been declared".format(name))
             else:
-                tmp = self._current_function.fdata.fresh_tmp()
+                tmp = self._current_function.fdata.fresh_tmp()  # new tmp reg
                 self._symbol_table[name] = tmp
                 if type_str not in ("int", "bool"):
                     raise MiniCUnsupportedError("Unsupported type " + type_str)
@@ -75,7 +75,15 @@ class MiniCCodeGen3AVisitor(MiniCVisitor):
 
     def visitBooleanAtom(self, ctx) -> Operands.Temporary:
         # true is 1 false is 0
-        raise NotImplementedError()  # TODO
+        if ctx.getText() == "true":
+            val = Operands.Immediate(1)
+        elif ctx.getText() == "false":
+            val = Operands.Immediate(0)
+        else:
+            raise MiniCInternalError("boolean literal")
+        dest_temp = self._current_function.fdata.fresh_tmp()
+        self._current_function.add_instruction(RiscV.li(dest_temp, val))
+        return dest_temp
 
     def visitIdAtom(self, ctx) -> Operands.Temporary:
         try:
@@ -99,13 +107,34 @@ class MiniCCodeGen3AVisitor(MiniCVisitor):
         assert ctx.myop is not None
         tmpl: Operands.Temporary = self.visit(ctx.expr(0))
         tmpr: Operands.Temporary = self.visit(ctx.expr(1))
-        raise NotImplementedError()  # TODO
+        dest_temp = self._current_function.fdata.fresh_tmp()
+
+        if ctx.myop.type == MiniCParser.PLUS:
+            self._current_function.add_instruction(
+                    RiscV.add(dest_temp, tmpl, tmpr))
+        elif ctx.myop.type == MiniCParser.MINUS:
+            self._current_function.add_instruction(
+                    RiscV.sub(dest_temp, tmpl, tmpr))
+        else:
+            raise MiniCInternalError("add operator")
+
+        return dest_temp
 
     def visitOrExpr(self, ctx) -> Operands.Temporary:
-        raise NotImplementedError()  # TODO
+        tmpl: Operands.Temporary = self.visit(ctx.expr(0))
+        tmpr: Operands.Temporary = self.visit(ctx.expr(1))
+        dest_temp = self._current_function.fdata.fresh_tmp()
+        self._current_function.add_instruction(
+                RiscV.lor(dest_temp, tmpl, tmpr))
+        return dest_temp
 
     def visitAndExpr(self, ctx) -> Operands.Temporary:
-        raise NotImplementedError()  # TODO
+        tmpl: Operands.Temporary = self.visit(ctx.expr(0))
+        tmpr: Operands.Temporary = self.visit(ctx.expr(1))
+        dest_temp = self._current_function.fdata.fresh_tmp()
+        self._current_function.add_instruction(
+                RiscV.land(dest_temp, tmpl, tmpr))
+        return dest_temp
 
     def visitEqualityExpr(self, ctx) -> Operands.Temporary:
         return self.visitRelationalExpr(ctx)
@@ -117,15 +146,80 @@ class MiniCCodeGen3AVisitor(MiniCVisitor):
             print("relational expression:")
             print(Trees.toStringTree(ctx, [], self._parser))
             print("Condition:", c)
-        raise NotImplementedError()  # TODO
+        # raise NotImplementedError()
+        ONE = Operands.Immediate(0)
+        relation = ctx.myop.type
+        dest_temp = self._current_function.fdata.fresh_tmp()
+        tmpl = self.visit(ctx.expr(0))
+        tmpr = self.visit(ctx.expr(1))
+        if relation == MiniCParser.NEQ:  # x!=y  <=>  x^y
+            self._current_function.add_instruction(
+                    RiscV.xor(dest_temp, tmpl, tmpr))
+            self._current_function.add_instruction(  # b&&1=1 if b != 0
+                   RiscV.land(dest_temp, dest_temp, ONE))
+        elif relation == MiniCParser.EQ:  # x==y <=> (x^y)^1
+            self._current_function.add_instruction(
+                    RiscV.xor(dest_temp, tmpl, tmpr))
+            self._current_function.add_instruction(  # b&&1=1 if b != 0
+                   RiscV.land(dest_temp, dest_temp, ONE))
+            self._current_function.add_instruction(
+                    RiscV.xor(dest_temp, dest_temp, ONE))
+        # I added slt into lib/RiscV
+        elif relation == MiniCParser.LTEQ:  # x<=y  <=>  (x>y)^1
+            self._current_function.add_instruction(
+                    RiscV.slt(dest_temp, tmpr, tmpl))
+            self._current_function.add_instruction(
+                    RiscV.xor(dest_temp, dest_temp, ONE))
+        elif relation == MiniCParser.GTEQ:  # x>=y  <=>  (x<y)^1
+            self._current_function.add_instruction(
+                    RiscV.slt(dest_temp, tmpl, tmpr))
+            self._current_function.add_instruction(
+                    RiscV.xor(dest_temp, dest_temp, ONE))
+        elif relation == MiniCParser.LT:
+            self._current_function.add_instruction(
+                    RiscV.slt(dest_temp, tmpl, tmpr))
+        elif relation == MiniCParser.GT:
+            self._current_function.add_instruction(
+                    RiscV.slt(dest_temp, tmpr, tmpl))
+        else:
+            raise MiniCInternalError("relational expression")
+
+        return dest_temp
 
     def visitMultiplicativeExpr(self, ctx) -> Operands.Temporary:
         assert ctx.myop is not None
         div_by_zero_lbl = self._current_function.fdata.get_label_div_by_zero()
-        raise NotImplementedError()  # TODO
+        tmpl: Operands.Temporary = self.visit(ctx.expr(0))
+        tmpr: Operands.Temporary = self.visit(ctx.expr(1))
+        dest_temp = self._current_function.fdata.fresh_tmp()
+        if ctx.myop.type == MiniCParser.MULT:
+            self._current_function.add_instruction(
+                    RiscV.mul(dest_temp, tmpl, tmpr))
+        else:
+            # We need to handle division by 0
+            self._current_function.add_instruction(
+                    RiscV.conditional_jump(div_by_zero_lbl,
+                                           tmpr,
+                                           Condition('beq'),
+                                           Operands.ZERO)
+                    )
+            if ctx.myop.type == MiniCParser.DIV:
+                self._current_function.add_instruction(
+                        RiscV.div(dest_temp, tmpl, tmpr))
+            elif ctx.myop.type == MiniCParser.MOD:
+                self._current_function.add_instruction(
+                        RiscV.rem(dest_temp, tmpl, tmpr))
+            else:
+                raise MiniCInternalError("mult operator")
+
+        return dest_temp
 
     def visitNotExpr(self, ctx) -> Operands.Temporary:
-        raise NotImplementedError()  # TODO
+        tmp = self.visit(ctx.expr())
+        dest_temp = self._current_function.fdata.fresh_tmp()
+        self._current_function.add_instruction(
+                RiscV.xor(dest_temp, tmp, Operands.Immediate(1)))
+        return dest_temp
 
     def visitUnaryMinusExpr(self, ctx) -> Operands.Temporary:
         raise NotImplementedError("unaryminusexpr")  # TODO
@@ -158,10 +252,26 @@ class MiniCCodeGen3AVisitor(MiniCVisitor):
         self._current_function.add_instruction(RiscV.mv(self._symbol_table[name], expr_temp))
 
     def visitIfStat(self, ctx) -> None:
+        ONE = Operands.Immediate(1)
         if self._debug:
             print("if statement")
         end_if_label = self._current_function.fdata.fresh_label("end_if")
-        raise NotImplementedError()  # TODO
+        # raise NotImplementedError()  # TODO
+        cond_tmp = self.visit(ctx.expr())
+        then_label = self._current_function.fdata.fresh_label("then")
+        # else_label = self._current_function.fdata.fresh_label("else")
+        self._current_function.add_instruction(
+                RiscV.conditional_jump(then_label,
+                                       cond_tmp,
+                                       Condition('beq'),
+                                       ONE)
+                )
+        # TODO : gérer le cas du else
+        self._current_function.add_label(then_label)
+        self.visit(ctx.stat_block())
+        self._current_function.add_instruction
+        # self._current_function.add_label(else_label)
+        # self.visit(ctx.stat_block(1))
         self._current_function.add_label(end_if_label)
 
     def visitWhileStat(self, ctx) -> None:
