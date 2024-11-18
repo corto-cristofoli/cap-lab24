@@ -187,6 +187,7 @@ class MiniCCodeGen3AVisitor(MiniCVisitor):
         return dest_temp
 
     def visitMultiplicativeExpr(self, ctx) -> Operands.Temporary:
+        # TODO : verify / and % to match C like operations
         assert ctx.myop is not None
         div_by_zero_lbl = self._current_function.fdata.get_label_div_by_zero()
         tmpl: Operands.Temporary = self.visit(ctx.expr(0))
@@ -258,16 +259,14 @@ class MiniCCodeGen3AVisitor(MiniCVisitor):
         end_if_label = self._current_function.fdata.fresh_label("end_if")
         # raise NotImplementedError()  # TODO
         cond_tmp = self.visit(ctx.expr())
-        then_label = self._current_function.fdata.fresh_label("then")
         # else_label = self._current_function.fdata.fresh_label("else")
-        self._current_function.add_instruction(
-                RiscV.conditional_jump(then_label,
+        self._current_function.add_instruction( # TODO : on saute si c'est pas le bon label
+                RiscV.conditional_jump(end_if_label,
                                        cond_tmp,
                                        Condition('beq'),
                                        ONE)
                 )
         # TODO : gérer le cas du else
-        self._current_function.add_label(then_label)
         self.visit(ctx.stat_block())
         self._current_function.add_instruction
         # self._current_function.add_label(else_label)
